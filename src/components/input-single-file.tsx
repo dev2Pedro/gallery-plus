@@ -42,6 +42,7 @@ interface InputSingleFileProps
   form: any;
   allowedExtensions: string[];
   maxFileSizeInMB: number;
+  replaceBy: React.ReactNode;
   error?: React.ReactNode;
 }
 
@@ -51,6 +52,7 @@ export default function InputSingleFile({
   error,
   allowedExtensions,
   maxFileSizeInMB,
+  replaceBy,
   ...props
 }: InputSingleFileProps) {
   const formValues = useWatch({ control: form.control });
@@ -152,31 +154,35 @@ export default function InputSingleFile({
           </div>
         </>
       ) : (
-        <div className="flex gap-3 items-center border border-solid border-border-primary mt-5 p-3 rounded">
-          <Icon svg={FileImageIcon} className="fill-white w-6 h-6" />
-          <div className="flex flex-col">
-            <div className="truncade max-w-80">
-              <Text variant="label-medium" className="text-placeholder">
-                {formFile.name}
-              </Text>
+        <>
+          {replaceBy}
+          <div className="flex gap-3 items-center border border-solid border-border-primary mt-5 p-3 rounded">
+            <Icon svg={FileImageIcon} className="fill-white w-6 h-6" />
+            <div className="flex flex-col">
+              <div className="truncade max-w-80">
+                <Text variant="label-medium" className="text-placeholder">
+                  {formFile.name}
+                </Text>
 
-              <div className="flex">
-                <button
-                  type="button"
-                  className={textVariants({
-                    variant: "label-small",
-                    className: "text-accent-red cursor-pointer hover:underline",
-                  })}
-                  onClick={() => {
-                    form.setValue(name, undefined);
-                  }}
-                >
-                  Remover
-                </button>
+                <div className="flex">
+                  <button
+                    type="button"
+                    className={textVariants({
+                      variant: "label-small",
+                      className:
+                        "text-accent-red cursor-pointer hover:underline",
+                    })}
+                    onClick={() => {
+                      form.setValue(name, undefined);
+                    }}
+                  >
+                    Remover
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </>
       )}
     </div>
   );
