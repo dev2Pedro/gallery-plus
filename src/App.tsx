@@ -64,7 +64,12 @@ export default function App() {
       </div>
 
       <div>
-        <InputSingleFile form={form} {...form.register("file")} />
+        <InputSingleFile
+          form={form}
+          name="file"
+          allowedExtensions={["png", "jpg", "jpeg", "webp"]}
+          maxFileSizeInMB={50}
+        />
       </div>
     </div>
   );
